@@ -6665,7 +6665,7 @@ const GSD_UNINSTALL_HOOKS = [
  * @param {string} runtime - Target runtime ('claude', 'opencode', 'codex', 'copilot')
  */
 function uninstall(isGlobal, runtime = 'claude') {
-  const { isOpencode, isKilo, isCodex, isCopilot, isAntigravity, isCursor, isWindsurf, isAugment, isTrae, isQwen, isHermes, isCodebuddy, isCline, isKimi } = runtimeFlags(runtime);
+  const { isOpencode, isKilo, isCodex, isCopilot, isAntigravity, isCursor, isWindsurf, isAugment, isTrae, isQwen, isHermes, isCodebuddy, isCline, isKimi, isZai } = runtimeFlags(runtime);
   const dirName = getDirName(runtime);
 
   // Get the target directory based on runtime and install type. Cline local
@@ -7667,7 +7667,7 @@ function resolveInstallRelativePath(baseDir, relPath) {
  * Write file manifest after installation for future modification detection
  */
 function writeManifest(configDir, runtime = 'claude', options = {}) {
-  const { isOpencode, isKilo, isCodex, isCopilot, isAntigravity, isCursor, isWindsurf, isAugment, isTrae, isQwen, isHermes, isCodebuddy, isCline, isKimi } = runtimeFlags(runtime);
+  const { isOpencode, isKilo, isCodex, isCopilot, isAntigravity, isCursor, isWindsurf, isAugment, isTrae, isQwen, isHermes, isCodebuddy, isCline, isKimi, isZai } = runtimeFlags(runtime);
   const gsdDir = path.join(configDir, 'gsd-core');
   // #1367: Claude local now writes flat gsd-*.md files at commands/ (not commands/gsd/).
   // Claude local uses flatCommandsDir instead for manifest recording.
@@ -8161,7 +8161,7 @@ function reportInstallerMigrationResult(result) {
 }
 
 function install(isGlobal, runtime = 'claude', options = {}) {
-  const { isOpencode, isKilo, isCodex, isCopilot, isAntigravity, isCursor, isWindsurf, isAugment, isTrae, isQwen, isHermes, isCodebuddy, isCline, isKimi } = runtimeFlags(runtime);
+  const { isOpencode, isKilo, isCodex, isCopilot, isAntigravity, isCursor, isWindsurf, isAugment, isTrae, isQwen, isHermes, isCodebuddy, isCline, isKimi, isZai } = runtimeFlags(runtime);
   const plan = resolveInstallPlan(runtime);
   const dirName = getDirName(runtime);
   const src = path.join(__dirname, '..');
@@ -8595,7 +8595,7 @@ function install(isGlobal, runtime = 'claude', options = {}) {
   // handles per-runtime path + branding rewrites, including Qwen/Hermes.
   // Cline global: emit skills to ~/.cline/skills/ (Cline >= v3.48.0 — #782).
   const _isSkillsRuntime = isCodex || isCopilot || isAntigravity || isCursor || isWindsurf ||
-    isAugment || isTrae || isCodebuddy || isQwen || isHermes ||
+    isAugment || isTrae || isCodebuddy || isQwen || isHermes || isZai ||
     isKimi ||
     (runtime === 'claude' && isGlobal) ||
     (isCline && isGlobal);
@@ -9061,6 +9061,11 @@ function install(isGlobal, runtime = 'claude', options = {}) {
           content = content.replace(/CLAUDE\.md/g, 'QWEN.md');
           content = content.replace(/\bClaude Code\b/g, 'Qwen Code');
           content = content.replace(/\.claude\//g, '.qwen/');
+        } else if (isZai) {
+          // Z.ai GLM Coding Plan reads the cross-agent AGENTS.md (no ZAI.md), so only
+          // the branding + config-dir path are rewritten — not the instruction filename.
+          content = content.replace(/\bClaude Code\b/g, 'Z.ai');
+          content = content.replace(/\.claude\//g, '.zai/');
         } else if (isHermes) {
           content = content.replace(/CLAUDE\.md/g, 'HERMES.md');
           content = content.replace(/\bClaude Code\b/g, 'Hermes Agent');
@@ -9149,6 +9154,9 @@ function install(isGlobal, runtime = 'claude', options = {}) {
             if (isQwen) {
               content = content.replace(/CLAUDE\.md/g, 'QWEN.md');
               content = content.replace(/\bClaude Code\b/g, 'Qwen Code');
+            }
+            if (isZai) {
+              content = content.replace(/\bClaude Code\b/g, 'Z.ai');
             }
             if (isHermes) {
               content = content.replace(/CLAUDE\.md/g, 'HERMES.md');
@@ -10143,7 +10151,7 @@ function install(isGlobal, runtime = 'claude', options = {}) {
  * Apply statusline config, then print completion message
  */
 function finishInstall(settingsPath, settings, statuslineCommand, shouldInstallStatusline, runtime = 'claude', isGlobal = true, configDir = null, bannerOpts = {}) {
-  const { isOpencode, isKilo, isCodex, isCopilot, isAntigravity, isCursor, isWindsurf, isAugment, isTrae, isQwen, isHermes, isCodebuddy, isCline, isKimi } = runtimeFlags(runtime);
+  const { isOpencode, isKilo, isCodex, isCopilot, isAntigravity, isCursor, isWindsurf, isAugment, isTrae, isQwen, isHermes, isCodebuddy, isCline, isKimi, isZai } = runtimeFlags(runtime);
   const plan = resolveInstallPlan(runtime);
 
   if (shouldInstallStatusline && plan.writesSharedSettings && !isOpencode) {

@@ -211,15 +211,15 @@ describe('resolveRuntimeConfigIntent — fresh object each call', () => {
 // ---------------------------------------------------------------------------
 
 describe('ALLOWED_CONFIG_RUNTIMES completeness', () => {
-  const EXPECTED_15 = new Set([
+  const EXPECTED_16 = new Set([
     'claude', 'antigravity', 'augment', 'qwen', 'hermes', 'codebuddy',
     'opencode', 'kilo', 'codex', 'copilot', 'cline', 'cursor', 'windsurf', 'trae',
-    'kimi',
+    'kimi', 'zai',
   ]);
 
-  test('ALLOWED_CONFIG_RUNTIMES contains exactly the 15 expected runtimes', () => {
+  test('ALLOWED_CONFIG_RUNTIMES contains exactly the 16 expected runtimes', () => {
     const runtimeSet = new Set(ALLOWED_CONFIG_RUNTIMES);
-    assert.deepStrictEqual(runtimeSet, EXPECTED_15);
+    assert.deepStrictEqual(runtimeSet, EXPECTED_16);
   });
 
   test('every member of ALLOWED_CONFIG_RUNTIMES resolves without throwing', () => {
@@ -228,8 +228,8 @@ describe('ALLOWED_CONFIG_RUNTIMES completeness', () => {
     }
   });
 
-  test('ALLOWED_CONFIG_RUNTIMES has exactly 15 entries', () => {
-    assert.strictEqual([...ALLOWED_CONFIG_RUNTIMES].length, 15);
+  test('ALLOWED_CONFIG_RUNTIMES has exactly 16 entries', () => {
+    assert.strictEqual([...ALLOWED_CONFIG_RUNTIMES].length, 16);
   });
 });
 
@@ -431,6 +431,16 @@ const EXPECTED = {
     hooksSurface: 'settings-json',
     sandboxTier: 'none',
   },
+  zai: {
+    runtime: 'zai',
+    installSurface: 'settings-json',
+    writesSharedSettings: true,
+    finishPermissionWriter: null,
+    hookEvents: 'claude',
+    extendedHookEvents: ['SubagentStop', 'Stop', 'PreCompact'],
+    hooksSurface: 'settings-json',
+    sandboxTier: 'none',
+  },
   hermes: {
     runtime: 'hermes',
     installSurface: 'settings-json',
@@ -486,8 +496,8 @@ const EXPECTED = {
 const ALL_RUNTIMES = Object.keys(EXPECTED);
 
 describe('resolveInstallPlan — ADR-857 phase 5g golden master', () => {
-  it('covers exactly 15 runtimes', () => {
-    assert.strictEqual(ALL_RUNTIMES.length, 15);
+  it('covers exactly 16 runtimes', () => {
+    assert.strictEqual(ALL_RUNTIMES.length, 16);
   });
 
   for (const runtime of ALL_RUNTIMES) {

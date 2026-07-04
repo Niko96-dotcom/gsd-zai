@@ -3234,18 +3234,18 @@ function makeRuntimeCap(overrides) {
   };
 }
 
-// ── 24a. All 15 runtime ids appear in the runtimes index ─────────────────────
+// ── 24a. All 16 runtime ids appear in the runtimes index ─────────────────────
 
-describe('ADR-1016 phase 5a: all 15 runtimes in registry index', () => {
+describe('ADR-1016 phase 5a: all 16 runtimes in registry index', () => {
   let registry;
 
-  test('loadAndValidate + buildRegistry produces runtimes index with 15 entries', () => {
+  test('loadAndValidate + buildRegistry produces runtimes index with 16 entries', () => {
     const { capMap, errors } = loadAndValidate(new Set());
     const hardErrors = errors.filter((e) => !e.includes('pending-migration'));
     assert.deepEqual(hardErrors, [], 'Expected no hard errors: ' + JSON.stringify(hardErrors));
     registry = buildRegistry(capMap);
     const runtimeKeys = Object.keys(registry.runtimes).sort();
-    assert.strictEqual(runtimeKeys.length, 15, 'Expected 15 runtime entries, got: ' + runtimeKeys.join(', '));
+    assert.strictEqual(runtimeKeys.length, 16, 'Expected 16 runtime entries, got: ' + runtimeKeys.join(', '));
     for (const id of RUNTIME_IDS) {
       assert.ok(
         Object.prototype.hasOwnProperty.call(registry.runtimes, id),
@@ -6360,21 +6360,21 @@ describe('enh-1055 descriptor-drive: unknown runtime throws TypeError', () => {
 });
 
 // ---------------------------------------------------------------------------
-// Test 4: ALLOWED_CONFIG_RUNTIMES contains all 15 expected runtimes
+// Test 4: ALLOWED_CONFIG_RUNTIMES contains all 16 expected runtimes
 // ---------------------------------------------------------------------------
 
 describe('enh-1055 descriptor-drive: ALLOWED_CONFIG_RUNTIMES completeness', () => {
-  const EXPECTED_15 = new Set([
+  const EXPECTED_16 = new Set([
     'claude', 'antigravity', 'augment', 'qwen', 'hermes', 'codebuddy',
-    'opencode', 'kilo', 'codex', 'copilot', 'cline', 'cursor', 'windsurf', 'trae', 'kimi',
+    'opencode', 'kilo', 'codex', 'copilot', 'cline', 'cursor', 'windsurf', 'trae', 'kimi', 'zai',
   ]);
 
-  test('contains exactly the 15 expected runtimes', () => {
-    assert.deepStrictEqual(new Set(ALLOWED_CONFIG_RUNTIMES), EXPECTED_15);
+  test('contains exactly the 16 expected runtimes', () => {
+    assert.deepStrictEqual(new Set(ALLOWED_CONFIG_RUNTIMES), EXPECTED_16);
   });
 
-  test('has exactly 15 entries', () => {
-    assert.strictEqual([...ALLOWED_CONFIG_RUNTIMES].length, 15);
+  test('has exactly 16 entries', () => {
+    assert.strictEqual([...ALLOWED_CONFIG_RUNTIMES].length, 16);
   });
 });
 

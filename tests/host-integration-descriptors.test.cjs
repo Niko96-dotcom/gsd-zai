@@ -31,15 +31,15 @@ const SCALAR_AXES = ['embeddingMode', 'commandSurface', 'modelMode', 'hookBus', 
 // All 6 dispatch sub-keys (includes backgroundDispatch added in feat/1679-dispatch-flatten)
 const DISPATCH_KEYS = ['namedDispatch', 'nested', 'maxDepth', 'background', 'subagentToolkit', 'backgroundDispatch'];
 
-// All 15 runtime IDs (ordered alphabetically)
+// All 16 runtime IDs (ordered alphabetically)
 const RUNTIME_IDS = [
   'antigravity', 'augment', 'claude', 'cline', 'codebuddy',
   'codex', 'copilot', 'cursor', 'hermes',
-  'kilo', 'kimi', 'opencode', 'qwen', 'trae', 'windsurf',
+  'kilo', 'kimi', 'opencode', 'qwen', 'trae', 'windsurf', 'zai',
 ];
 
 // Contract-pinned profile split (derived from .host-cli-final.json):
-// programmatic-cli: claude, cline, cursor, hermes, kilo, kimi, opencode, qwen, trae (9)
+// programmatic-cli: claude, cline, cursor, hermes, kilo, kimi, opencode, qwen, trae, zai (10)
 // declarative-cli:  antigravity, augment, codebuddy, codex, copilot, windsurf (6)
 // ide: 0
 const EXPECTED_PROFILES = {
@@ -52,6 +52,7 @@ const EXPECTED_PROFILES = {
   opencode:    'programmatic-cli',
   qwen:        'programmatic-cli',
   trae:        'programmatic-cli',
+  zai:         'programmatic-cli',
   antigravity: 'declarative-cli',
   augment:     'declarative-cli',
   codebuddy:   'declarative-cli',
@@ -63,7 +64,7 @@ const EXPECTED_PROFILES = {
 describe('ADR-1239 Phase A: hostIntegration descriptors', () => {
   // ─── Registry shape ──────────────────────────────────────────────────────────
 
-  test('registry.runtimes contains all 15 expected runtime ids', () => {
+  test('registry.runtimes contains all 16 expected runtime ids', () => {
     for (const id of RUNTIME_IDS) {
       assert.ok(
         Object.prototype.hasOwnProperty.call(registry.runtimes, id),
@@ -72,8 +73,8 @@ describe('ADR-1239 Phase A: hostIntegration descriptors', () => {
     }
     assert.strictEqual(
       Object.keys(registry.runtimes).length,
-      15,
-      'registry.runtimes must have exactly 15 entries',
+      16,
+      'registry.runtimes must have exactly 16 entries',
     );
   });
 
@@ -220,7 +221,7 @@ describe('ADR-1239 Phase A: hostIntegration descriptors', () => {
         counts[profile]++;
       }
     }
-    assert.strictEqual(counts['programmatic-cli'], 9, 'Must have exactly 9 programmatic-cli runtimes');
+    assert.strictEqual(counts['programmatic-cli'], 10, 'Must have exactly 10 programmatic-cli runtimes');
     assert.strictEqual(counts['declarative-cli'], 6, 'Must have exactly 6 declarative-cli runtimes');
     assert.strictEqual(counts['ide'], 0, 'Must have exactly 0 ide runtimes');
   });
@@ -249,7 +250,7 @@ describe('ADR-1239 Phase A: hostIntegration descriptors', () => {
 
   // ─── shouldFlattenDispatch per-host (#853 discriminator) ─────────────────────
 
-  // Expected: false (may background) for codex and cursor ONLY; true (must inline) for the other 14.
+  // Expected: false (may background) for codex and cursor ONLY; true (must inline) for the other 15.
   const EXPECTED_FLATTEN = {
     antigravity: true,
     augment:     true,
@@ -266,6 +267,7 @@ describe('ADR-1239 Phase A: hostIntegration descriptors', () => {
     qwen:        true,
     trae:        true,
     windsurf:    true,
+    zai:         true,
   };
 
   for (const id of RUNTIME_IDS) {

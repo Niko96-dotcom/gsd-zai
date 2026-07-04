@@ -5,7 +5,29 @@
 five-step Discuss → Plan → Execute → Verify → Ship loop runs on top of GLM models the same way it
 already runs on Claude Code, Codex, Kimi, Qwen, etc.
 
+## Status
+
+| Phase | Status | Notes |
+|---|---|---|
+| 0 — Foundation branch | ✅ Done | `feat/zai-runtime` off `next`; baseline green |
+| 1 — Runtime descriptor | ✅ Done | `capabilities/zai/capability.json`; registry regenerates clean |
+| 2 — Name-policy + aliases | ✅ Done | `zai`/`glm`/`zhipu`/`z-ai`/`glm-code` → `zai`; label `Z.ai`; `.zai` dir |
+| 3 — Model catalog | ✅ Partial | `zai` added to `runtimeTierDefaults` (Group B, all-null tiers) |
+| 4 — Installer surface | ✅ Done | `--zai`, `ZAI_CONFIG_DIR`, menu option 16, skill-writing + branding wired |
+| 5 — Live verification | ⏳ Deferred | Requires a real GLM Coding Plan subscription + `ZHIPU_API_KEY`; pin concrete GLM model ids here |
+| 6 — Tests, docs, release | ✅ Done | All golden masters updated; full suite at parity with clean upstream; changeset added |
+
+**Phase 5 is the only outstanding item** — it needs live access to a GLM Coding Plan to confirm the
+exact GLM model ids per tier (e.g. `glm-4.7`, `glm-5`, `glm-5.2`) and verify hook events fire. Until
+then `zai` ships as a Group B runtime (host-configured model wins), which is correct and safe.
+
+**Verification:** the full test suite shows **zero failures introduced** by this branch (diffed
+against clean `next`: identical 16 pre-existing failures, all unrelated graphify/security/render-hooks).
+ESLint clean on all changed files.
+
 ---
+
+
 
 ## 1. Background & key finding
 

@@ -162,10 +162,10 @@ describe('#1928 gemini removed from every runtime-name-policy surface', () => {
     assert.strictEqual(getRuntimeNewProjectCommand('gemini'), '/gsd-new-project', 'new-project override removed → default');
   });
 
-  test('runtimeFlags has exactly 14 non-claude runtimes and no isGemini', () => {
+  test('runtimeFlags has exactly 15 non-claude runtimes and no isGemini', () => {
     const flags = runtimeFlags('claude');
     assert.ok(!('isGemini' in flags), 'isGemini flag must be gone');
-    assert.strictEqual(Object.keys(flags).length, 14, 'flag count drops 15 → 14 with gemini removed');
+    assert.strictEqual(Object.keys(flags).length, 15, 'flag count drops 16 → 15 with gemini removed');
   });
 
   test('gemini no longer maps to GEMINI.md (defaults to AGENTS.md)', () => {

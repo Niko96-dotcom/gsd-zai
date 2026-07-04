@@ -46,13 +46,14 @@ const GOLDEN_FRAGMENT_MAP = {
   codebuddy: "'.codebuddy'",
   cline:     "'.cline'",
   kimi:      "'.config', 'agents'",
+  zai:       "'.zai'",
 };
 
 // Runtimes intentionally NOT in the table: claude is the default; antigravity is
 // resolved dynamically by the caller (resolveAntigravityGlobalDir + path.relative).
 const SPECIAL_CASED = new Set(['claude', 'antigravity']);
 
-test('getGlobalConfigHomeFragment: golden map matches for all 13 table runtimes', () => {
+test('getGlobalConfigHomeFragment: golden map matches for all 14 table runtimes', () => {
   for (const [id, expected] of Object.entries(GOLDEN_FRAGMENT_MAP)) {
     const actual = getGlobalConfigHomeFragment(id);
     assert.strictEqual(

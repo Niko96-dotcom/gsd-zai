@@ -56,6 +56,7 @@ const RUNTIME_META = {
   qwen:         { localDir: '.qwen',             globalSuffix: '.qwen' },
   trae:         { localDir: '.trae',             globalSuffix: '.trae' },
   windsurf:     { localDir: '.windsurf',          globalSuffix: path.join('.codeium', 'windsurf') },
+  zai:          { localDir: '.zai',              globalSuffix: '.zai' },
 };
 
 // Runtimes that emit per-skill files under skills/ (not rules-based or commands-based)

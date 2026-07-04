@@ -33,7 +33,7 @@ const { getDirName } = runtimeNamePolicy;
 const EXPECTED = [
   'antigravity', 'augment', 'cline', 'codebuddy', 'codex', 'copilot',
   'cursor', 'hermes', 'kilo', 'kimi', 'opencode', 'qwen',
-  'trae', 'windsurf',
+  'trae', 'windsurf', 'zai',
 ];
 
 test('NON_CLAUDE_RUNTIMES matches the golden expected set (sorted)', () => {
