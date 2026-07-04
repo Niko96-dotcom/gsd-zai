@@ -2439,6 +2439,81 @@ const capabilities = {
         "runtime": "undocumented"
       }
     }
+  },
+  "zai": {
+    "id": "zai",
+    "role": "runtime",
+    "version": "1.7.0-rc.2",
+    "title": "Z.ai GLM Coding Plan",
+    "description": "Z.ai GLM Coding Plan (Zhipu) — GLM-4.x/5 model family over Anthropic/OpenAI-compatible endpoints; nested-skill artifact layout; settings-json hook surface when run under a host that supports it; tier-2 support.",
+    "tier": "core",
+    "requires": [],
+    "engines": {
+      "gsd": ">=1.6.0"
+    },
+    "runtime": {
+      "configHome": {
+        "kind": "dot-home",
+        "name": ".zai",
+        "env": [
+          "ZAI_CONFIG_DIR"
+        ]
+      },
+      "localConfigDir": ".zai",
+      "configFormat": "settings-json",
+      "artifactLayout": {
+        "global": [
+          {
+            "kind": "skills",
+            "destSubpath": "skills",
+            "prefix": "gsd-",
+            "nesting": "nested",
+            "recursive": false,
+            "converter": "convertClaudeCommandToClaudeSkill"
+          }
+        ],
+        "local": [
+          {
+            "kind": "skills",
+            "destSubpath": "skills",
+            "prefix": "gsd-",
+            "nesting": "nested",
+            "recursive": false,
+            "converter": "convertClaudeCommandToClaudeSkill"
+          }
+        ]
+      },
+      "commandStyle": "slash-hyphen",
+      "hooksSurface": "settings-json",
+      "hookEvents": "claude",
+      "sandboxTier": "none",
+      "supportTier": 2,
+      "installSurface": "settings-json",
+      "writesSharedSettings": true,
+      "permissionWriter": null,
+      "extendedHookEvents": [
+        "SubagentStop",
+        "Stop",
+        "PreCompact"
+      ],
+      "hostIntegration": {
+        "embeddingMode": "imperative",
+        "commandSurface": "slash-file",
+        "dispatch": {
+          "namedDispatch": true,
+          "nested": false,
+          "maxDepth": 1,
+          "background": true,
+          "subagentToolkit": "full",
+          "backgroundDispatch": false
+        },
+        "modelMode": "passive",
+        "hookBus": "host",
+        "stateIO": "filesystem",
+        "transport": "mcp",
+        "runtime": "node"
+      }
+    }
   }
 };
 
@@ -4495,6 +4570,81 @@ const runtimes = {
         "runtime": "undocumented"
       }
     }
+  },
+  "zai": {
+    "id": "zai",
+    "role": "runtime",
+    "version": "1.7.0-rc.2",
+    "title": "Z.ai GLM Coding Plan",
+    "description": "Z.ai GLM Coding Plan (Zhipu) — GLM-4.x/5 model family over Anthropic/OpenAI-compatible endpoints; nested-skill artifact layout; settings-json hook surface when run under a host that supports it; tier-2 support.",
+    "tier": "core",
+    "requires": [],
+    "engines": {
+      "gsd": ">=1.6.0"
+    },
+    "runtime": {
+      "configHome": {
+        "kind": "dot-home",
+        "name": ".zai",
+        "env": [
+          "ZAI_CONFIG_DIR"
+        ]
+      },
+      "localConfigDir": ".zai",
+      "configFormat": "settings-json",
+      "artifactLayout": {
+        "global": [
+          {
+            "kind": "skills",
+            "destSubpath": "skills",
+            "prefix": "gsd-",
+            "nesting": "nested",
+            "recursive": false,
+            "converter": "convertClaudeCommandToClaudeSkill"
+          }
+        ],
+        "local": [
+          {
+            "kind": "skills",
+            "destSubpath": "skills",
+            "prefix": "gsd-",
+            "nesting": "nested",
+            "recursive": false,
+            "converter": "convertClaudeCommandToClaudeSkill"
+          }
+        ]
+      },
+      "commandStyle": "slash-hyphen",
+      "hooksSurface": "settings-json",
+      "hookEvents": "claude",
+      "sandboxTier": "none",
+      "supportTier": 2,
+      "installSurface": "settings-json",
+      "writesSharedSettings": true,
+      "permissionWriter": null,
+      "extendedHookEvents": [
+        "SubagentStop",
+        "Stop",
+        "PreCompact"
+      ],
+      "hostIntegration": {
+        "embeddingMode": "imperative",
+        "commandSurface": "slash-file",
+        "dispatch": {
+          "namedDispatch": true,
+          "nested": false,
+          "maxDepth": 1,
+          "background": true,
+          "subagentToolkit": "full",
+          "backgroundDispatch": false
+        },
+        "modelMode": "passive",
+        "hookBus": "host",
+        "stateIO": "filesystem",
+        "transport": "mcp",
+        "runtime": "node"
+      }
+    }
   }
 };
 
@@ -4676,7 +4826,8 @@ const _requiresGraph = {
   "tdd": [],
   "trae": [],
   "ui": [],
-  "windsurf": []
+  "windsurf": [],
+  "zai": []
 };
 
 function requiresClosure(id) {
