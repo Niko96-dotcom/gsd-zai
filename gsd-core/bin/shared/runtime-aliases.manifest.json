@@ -70,5 +70,13 @@
   "cline": [
     "cline",
     "cline-cli"
+  ],
+  "zai": [
+    "zai",
+    "zai-cli",
+    "z-ai",
+    "glm",
+    "glm-code",
+    "zhipu"
   ]
 }
